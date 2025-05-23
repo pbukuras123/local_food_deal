@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: local-food-deal
+    env: ruby
+    buildCommand: "bundle install && bundle exec rake db:migrate"
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: local-food-deal-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+
+databases:
+  - name: local-food-deal-db
+    databaseName: local_food_deal_production
+    user: local_food_user
